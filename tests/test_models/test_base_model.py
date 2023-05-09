@@ -9,10 +9,12 @@ from datetime import datetime
 class TestBaseModel(unittest.TestCase):
     """implementing the test cases"""
 
-    def test_init_BM(self):
-        """test for correct instance initialization"""
+    def test_init_(self):
+        """test for correct instances initialization"""
         obj_1 = BaseModel()
         obj_2 = BaseModel()
+        obj_2.My_name = "Alx student"
+        obj_2.My_cohort = 11
         time = datetime.now()
         self.assertNotEqual(obj_1.id, obj_2.id)
         self.assertNotEqual(time, obj_1.created_at)
@@ -20,9 +22,18 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(type(obj_1.id), str)
         self.assertNotEqual(obj_1.created_at, obj_2.created_at)
         self.assertIsInstance(obj_1, BaseModel)
+        # task 4 testcases
+        get_dict = obj_2.to_dict()
+        obj_3 = BaseModel(**get_dict)
+        self.assertEqual(type(obj_3.created_at), datetime)
+        self.assertEqual(type(obj_3.updated_at), datetime)
+        self.assertNotIn("__class__", self.__dict__.keys())
+        self.assertFalse(obj_2 is obj_3)
+        self.assertIsInstance(obj_3, type(obj_2))
 
     def test_str(self):
         """Test for BaseModel __str__ method"""
+        # task 3 testcases
         obj_1 = BaseModel()
         obj_1.name = "My First Model"
         obj_1.my_number = 89
@@ -33,6 +44,7 @@ class TestBaseModel(unittest.TestCase):
 
     def test_save(self):
         """ test for save method of BaseModel Class"""
+        # task 3 testcases
         obj = BaseModel()
         time = obj.updated_at
         obj.save()
@@ -41,6 +53,7 @@ class TestBaseModel(unittest.TestCase):
 
     def test_to_dict(self):
         """test for to_dict method of the BaseModel Class"""
+        # task 3 testcases
         obj = BaseModel()
         obj.name = "My Second Model"
         obj.my_number = 100

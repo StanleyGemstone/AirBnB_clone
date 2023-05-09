@@ -10,12 +10,27 @@ import datetime
 class BaseModel:
     """BaseModel class definition"""
 
-    def __init__(self):
-        """handle initiliazaton of the class instances"""
+    def __init__(self, *args, **kwargs):
+        """
+        handle initiliazaton of the class instances using either empty init
+        argument or non-keyword argumemt as list, or keyword argument as dict
+        """
 
-        self.id = str(uuid.uuid4())
-        self.created_at = datetime.datetime.now()
-        self.updated_at = datetime.datetime.now()
+        if (kwargs):
+            self.id = str(uuid.uuid4())
+            tup = ("__class__", "created_at", "updated_at")
+            for key, val in kwargs.items():
+                if (key not in tup):
+                    setattr(self, key, val)
+                else:
+                    if (key == "created_at"):
+                        self.created_at = datetime.datetime.fromisoformat(val)
+                    elif key == "updated_at":
+                        self.updated_at = datetime.datetime.fromisoformat(val)
+        else:
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.datetime.now()
+            self.updated_at = datetime.datetime.now()
 
     def __str__(self):
         """return the unofficial string representation for class instances"""
