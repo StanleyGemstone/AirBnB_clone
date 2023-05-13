@@ -26,14 +26,14 @@ class Console(cmd.Cmd):
         then prints out the id of the created instance.
         """
         if (new_instance):
-            if (new_instance == "BaseModel"): 
+            if (new_instance == "BaseModel"):
                 new_instance = BaseModel()
                 new_instance.save()
                 print(new_instance.id)
             else:
                 print("** class doesn't exist **")
         else:
-             print("**class name missing **")
+            print("**class name missing **")
 
     def do_show(self, key):
         """Prints the string representation of an instance
@@ -99,7 +99,7 @@ class Console(cmd.Cmd):
             else:
                 print("** class doesn't exist **")
         else:
-             print(to_list)
+            print(to_list)
 
     def postcmd(self, stop, line):
         """handle post cmd command during isatty"""
