@@ -7,10 +7,13 @@ import cmd
 import sys
 import os
 from models.base_model import BaseModel
+from models.user import User
 
 
 class Console(cmd.Cmd):
     prompt = ""
+
+    dict_cls = {"BaseModel": BaseModel, "User": User}
 
     if sys.stdin.isatty():
         prompt = "(hbnb) "
@@ -26,8 +29,10 @@ class Console(cmd.Cmd):
         then prints out the id of the created instance.
         """
         if (new_instance):
-            if (new_instance == "BaseModel"):
-                new_instance = BaseModel()
+            if (new_instance in self.dict_cls.keys()):
+                new_instance = self.dict_cls[new_instance]()
+            # if (new_instance == "BaseModel"):
+                # new_instance = BaseModel()
                 new_instance.save()
                 print(new_instance.id)
             else:
@@ -44,7 +49,7 @@ class Console(cmd.Cmd):
         if (key):
             key_list = key.split()
             length = len(key_list)
-            if (key_list[0] == "BaseModel"):
+            if (key_list[0] in self.dict_cls.keys()):
                 if (length == 2):
                     delim = "."
                     get_obj = delim.join(key_list)
@@ -67,7 +72,7 @@ class Console(cmd.Cmd):
         if (key):
             key_list = key.split()
             length = len(key_list)
-            if (key_list[0] == "BaseModel"):
+            if (key_list[0] in self.dict_cls.keys()):
                 if (length == 2):
                     delim = "."
                     get_obj = delim.join(key_list)
@@ -94,7 +99,7 @@ class Console(cmd.Cmd):
         for obj in storage.all().values():
             to_list.append(obj.__str__())
         if (cls_name):
-            if (cls_name == 'BaseModel'):
+            if (cls_name in self.dict_cls.keys()):
                 print(to_list)
             else:
                 print("** class doesn't exist **")
@@ -119,7 +124,7 @@ class Console(cmd.Cmd):
         if (attr):
             list_attr = attr.split()
             length = len(list_attr)
-            if (list_attr[0] == "BaseModel"):
+            if (list_attr[0] in self.dict_cls.keys()):
                 if (length >= 2):
                     delim = '.'
                     key = delim.join(list_attr[0:2])

@@ -36,12 +36,16 @@ class FileStorage:
     def reload(self):
         """deserializes json file: __file_path to dictionary obj: __objects"""
         from models.base_model import BaseModel
+        from models.user import User
 
         try:
             with open(self.__file_path, 'r', encoding='utf-8') as f:
                 json_dict = json.load(f)
         # help all() to be able to return previous data assign to  __objects
+                dic_classname = {"BaseModel": BaseModel, "User": User}
+                c_name = "__class__"
                 for keys, vals in json_dict.items():
-                    self.__objects[keys] = BaseModel(**vals)
-        except FileNotFoundError:
+                    c_name = vals["__class__"]
+                    self.__objects[keys] = dic_classname[c_name](**vals)
+        except (FileNotFoundError, KeyError):
             pass
