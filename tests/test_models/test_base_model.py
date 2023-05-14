@@ -38,7 +38,9 @@ class TestBaseModel(unittest.TestCase):
         obj_1.name = "My First Model"
         obj_1.my_number = 89
         temp = type(obj_1).__name__
-        flag1 = "[{}] ({}) {}".format(temp, obj_1.id, obj_1.__dict__)
+        copy = obj_1.to_dict().copy()
+        del copy['__class__']
+        flag1 = "[{}] ({}) {}".format(temp, obj_1.id, copy)
         flag2 = obj_1.__str__()
         self.assertTrue(flag1 == flag2)
 
