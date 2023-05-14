@@ -101,6 +101,49 @@ class Console(cmd.Cmd):
         else:
             print(to_list)
 
+    @staticmethod
+    def rm_quotation(string):
+        """handle attr value surrounded with single or double quotation"""
+        tup = (34, 39)
+        if (ord(string[0]) in tup and ord(string[-1]) in tup):
+            return (string[1:-1])
+        else:
+            return string
+
+    def do_update(self, attr):
+        """Updates an instance based on the class name and id by adding or
+            updating attribute (save the change into the JSON file).
+            Ex: $ update BaseModel 1234-1234-1234 email "aibnb@mail.com".
+        """
+        from models import storage
+        if (attr):
+            list_attr = attr.split()
+            length = len(list_attr)
+            if (list_attr[0] == "BaseModel"):
+                if (length >= 2):
+                    delim = '.'
+                    key = delim.join(list_attr[0:2])
+                    load_dict = storage.all()
+                    get_val = load_dict.get(key, "no")
+                    if (get_val != "no"):
+                        if (length >= 3):
+                            if (length >= 4):
+                                value = self.rm_quotation(list_attr[3])
+                                setattr(get_val, list_attr[2], value)
+                                storage.save()
+                            else:
+                                print("** value missing **")
+                        else:
+                            print("** attribute name missing **")
+                    else:
+                        print("** no instance found **")
+                else:
+                    print("** instance id missing **")
+            else:
+                print("** class doesn't exist **")
+        else:
+            print("** class name missing **")
+
     def postcmd(self, stop, line):
         """handle post cmd command during isatty"""
         if not sys.stdin.isatty():
