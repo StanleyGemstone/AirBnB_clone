@@ -192,6 +192,8 @@ class Console(cmd.Cmd):
         id_tag = ""
         atrr_name = ""
         attr_val = ""
+        # I need to nested this below if-elif statement
+        # inside a try and except block to manage in IndexError
         if (length >= 3):
             id_tag = Console.rm_quotation(restruct[0][7:])
             attr_name = Console.rm_quotation(restruct[1][1:])
@@ -209,6 +211,8 @@ class Console(cmd.Cmd):
         """handle commands/methods that's not explicitly defined"""
         args = string.split('.')
         length = len(args)
+        # I need to nested this below if-elif statement
+        # inside a try and except block to manage in IndexError
         if (length >= 2) and (args[1] == "all()" or args[1] == "count()"):
             self.all_and_count(args[0], args[1])
         elif (length >= 2 and (args[1][:4] == "show")):
