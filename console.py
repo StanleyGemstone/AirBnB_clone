@@ -157,6 +157,29 @@ class Console(cmd.Cmd):
         else:
             print("** class name missing **")
 
+    @staticmethod
+    def cls_all_cmd(classname):
+        from models import storage
+        load_obj = storage.all()
+        lst = []
+        tup = ("BaseModel", "User", "Amenity",
+               "Review", "Place", "State", "City")
+        if (classname in tup):
+            for keys, cls_obj in load_obj.items():
+                c_name = keys[0:keys.index('.')]
+                if c_name == classname:
+                    lst.append(cls_obj.__str__())
+            print(lst)
+        else:
+            print("** class doesn't exist **")
+
+    def default(self, command):
+        """handle commands/methods that's not explicitly defined"""
+        cmd_list = command.split('.')
+        length = len(cmd_list)
+        if (length >= 2) and (cmd_list[1] == "all()"):
+            self.cls_all_cmd(cmd_list[0])
+
     def postcmd(self, stop, line):
         """handle post cmd command during isatty"""
         if not sys.stdin.isatty():
