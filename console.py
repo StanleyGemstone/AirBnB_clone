@@ -158,27 +158,35 @@ class Console(cmd.Cmd):
             print("** class name missing **")
 
     @staticmethod
-    def cls_all_cmd(classname):
+    def all_and_count(classname, command):
+        """This method handles default argument:
+            <class name>.all() or class name>.count() command
+        """
         from models import storage
         load_obj = storage.all()
         lst = []
+        count = 0
         tup = ("BaseModel", "User", "Amenity",
                "Review", "Place", "State", "City")
         if (classname in tup):
             for keys, cls_obj in load_obj.items():
                 c_name = keys[0:keys.index('.')]
                 if c_name == classname:
+                    count += 1
                     lst.append(cls_obj.__str__())
-            print(lst)
+            if (command == "all()"):
+                print(lst)
+            else:
+                print(count)
         else:
             print("** class doesn't exist **")
 
-    def default(self, command):
+    def default(self, string):
         """handle commands/methods that's not explicitly defined"""
-        cmd_list = command.split('.')
-        length = len(cmd_list)
-        if (length >= 2) and (cmd_list[1] == "all()"):
-            self.cls_all_cmd(cmd_list[0])
+        args = string.split('.')
+        length = len(args)
+        if (length >= 2) and (args[1] == "all()" or args[1] == "count()"):
+            self.all_and_count(args[0], args[1])
 
     def postcmd(self, stop, line):
         """handle post cmd command during isatty"""
