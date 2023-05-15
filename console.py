@@ -187,6 +187,10 @@ class Console(cmd.Cmd):
         length = len(args)
         if (length >= 2) and (args[1] == "all()" or args[1] == "count()"):
             self.all_and_count(args[0], args[1])
+        elif (length >= 2 and (args[1][:4] == "show")):
+            concat = args[0] + " "
+            concat += self.rm_quotation(args[1][6:-2])
+            self.do_show(concat)
 
     def postcmd(self, stop, line):
         """handle post cmd command during isatty"""
