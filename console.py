@@ -181,6 +181,30 @@ class Console(cmd.Cmd):
         else:
             print("** class doesn't exist **")
 
+    @staticmethod
+    def handle_update(string, clsname):
+        """This method handle default command
+        <class name>.update(<id>, <attribute name>, <attribute value>).
+        """
+        restruct = string.split(",")
+        length = len(restruct)
+        print(restruct)
+        id_tag = ""
+        atrr_name = ""
+        attr_val = ""
+        if (length >= 3):
+            id_tag = Console.rm_quotation(restruct[0][7:])
+            attr_name = Console.rm_quotation(restruct[1][1:])
+            index = restruct[2].index(')')
+            attr_val = Console.rm_quotation(restruct[2][1:index])
+        elif (length == 2):
+            d_tag = Console.rm_quotation(restruct[0][7:])
+            attr_name = Console.rm_quotation(restruct[1][1:])
+        elif (length == 1):
+            id_tag = Console.rm_quotation(restruct[0][7:])
+        concat = clsname + " " + id_tag + " " + attr_name + " " + attr_val
+        return (concat)
+
     def default(self, string):
         """handle commands/methods that's not explicitly defined"""
         args = string.split('.')
@@ -195,6 +219,9 @@ class Console(cmd.Cmd):
             concat = args[0] + " "
             concat += self.rm_quotation(args[1][9:-2])
             self.do_destroy(concat)
+        elif (length >= 2 and args[1][:6] == "update"):
+            data = self.handle_update(args[1], args[0])
+            self.do_update(data)
 
     def postcmd(self, stop, line):
         """handle post cmd command during isatty"""
