@@ -191,6 +191,10 @@ class Console(cmd.Cmd):
             concat = args[0] + " "
             concat += self.rm_quotation(args[1][6:-2])
             self.do_show(concat)
+        elif (length >= 2 and (args[1][:7]) == "destroy"):
+            concat = args[0] + " "
+            concat += self.rm_quotation(args[1][9:-2])
+            self.do_destroy(concat)
 
     def postcmd(self, stop, line):
         """handle post cmd command during isatty"""
