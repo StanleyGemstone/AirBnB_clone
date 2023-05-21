@@ -1,9 +1,8 @@
 div.container {
-    max-width: 1000px;
-    margin: 30px auto;
-    text-align: center;
+	max-width: 1000px;
+	margin: 30px auto;
+	text-align: center;
 }
-
 section.filters {
     background-color: white;
     height: 70px;
@@ -11,35 +10,31 @@ section.filters {
     border: 1px solid #DDDDDD;
     border-radius: 4px;
 }
-
 section.filters button {
     background-color: #FF5A5F;
     color: #ffffff;
     font-size: 18px;
     height: 48px;
     width: 20%;
-    border: 0;
+    border: none;
     border-radius: 4px;
     float: right;
     margin: 11px 30px;
 }
-
 section.filters button:hover {
     opacity: .9;
 }
-
-/* Locations and amenities in the search bar*/
-.location, 
+.locations, 
 .amenities {
     height: 100%;
     width: 25%;
     float: left;
 }
 .locations {
-    border: 1px solid #DDDDDD;
+    border-right: 1px solid #DDDDDD;
 }
 
-.location h3,
+.locations h3,
 .amenities h3 {
     font-weight: 600;
     font-size: 16px;
@@ -49,7 +44,7 @@ section.filters button:hover {
     margin-left: 30px;
 }
 
-.location h4,
+.locations h4,
 .amenities h4 {
     font-weight: 400;
     font-size: 14px;
@@ -60,7 +55,7 @@ section.filters button:hover {
 }
 
 /* Displays State and Amenities When Hovered*/
-/*ul.popover {
+ul.popover {
     display: none;
     background-color: #FAFAFA;
     border: 1px solid #DDDDDD;
@@ -76,6 +71,7 @@ li {
     list-style-type: none;
     margin-top: 10px;
     margin-bottom: 10px;
+    text-align: left;
 }
 .locations:hover .popover,
 .amenities:hover .popover {
