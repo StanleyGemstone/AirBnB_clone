@@ -1,0 +1,81 @@
+div.container {
+    max-width: 1000px;
+    margin: 30px auto;
+    /*text-align: center;*/
+}
+
+section.filters{
+    background-color: white;
+    height: 70px;
+    width: 100%;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px;
+}
+
+section.filters button {
+    background-color: #FF5A5F;
+    color: #ffffff;
+    font-size: 18px;
+    height: 48px;
+    width: 20%;
+    border: 0;
+    border-radius: 4px;
+    float: right;
+    margin: 11px 30px;
+}
+
+section.filters button:hover {
+    opacity: .9;
+}
+/* Locations and amenities in the search bar*/
+div.location, 
+div.amenities {
+    height: 100%;
+    width: 25%;
+    float: left;
+}
+.locations {
+    border: 1px solid #DDDDDD;
+}
+
+div.location h3,
+div.amenities h3 {
+    font-weight: 600;
+    font-size: 16px;
+    margin-top: 20px;
+    margin-bottom: 0;
+    text-align: left;
+    margin-left: 30px;
+}
+
+div.location h4,
+div.amenities h4 {
+    font-weight: 400;
+    font-size: 14px;
+    margin-top: 0;
+    margin-bottom: 0;
+    text-align: left;
+    margin-left: 30px;
+}
+/* Displays State and Amenities When Hovered*/
+ul.popover {
+    display: none;
+    background-color: #FAFAFA;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px;
+    position: relative;
+    z-index: 1;
+}
+ul.popover h2 {
+    font-size: 16px;
+}
+
+li {
+    list-style-type: none;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.locations:hover .popover,
+.amenities:hover .popover {
+    display: block;
+}
