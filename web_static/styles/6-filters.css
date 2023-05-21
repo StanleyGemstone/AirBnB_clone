@@ -28,8 +28,8 @@ section.filters button:hover {
     opacity: .9;
 }
 /* Locations and amenities in the search bar*/
-div.location, 
-div.amenities {
+.location, 
+.amenities {
     height: 100%;
     width: 25%;
     float: left;
@@ -38,8 +38,8 @@ div.amenities {
     border: 1px solid #DDDDDD;
 }
 
-div.location h3,
-div.amenities h3 {
+.location h3,
+.amenities h3 {
     font-weight: 600;
     font-size: 16px;
     margin-top: 20px;
